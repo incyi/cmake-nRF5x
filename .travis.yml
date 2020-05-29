@@ -29,6 +29,10 @@ install:
   - cd $ARM_NONE_EABI_TOOLCHAIN_PATH
   - wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
   - tar -xvf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 -C $ARM_NONE_EABI_TOOLCHAIN_PATH
+  # add compiler folder to $PATH
+  - export PATH=$PATH:ARM_NONE_EABI_TOOLCHAIN_PATH/bin
+  # test gcc-arm-none-eabi compiler
+  - arm-none-eabi-gcc --version
   # install nRF5 SDK in toolchains folder
   - cd $NRF5_SDK_PATH
   - wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries/nRF5SDK160098a08e2.zip
