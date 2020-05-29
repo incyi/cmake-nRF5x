@@ -5,8 +5,8 @@ before_install:
   # Save path to the git respository
   - PROJECT_PATH=$(pwd)/example
   # Save path to the toolchains folder
-  - TOOLCHAIN_FOLDER=$(pwd)/../toolchains
-  - mkdir $TOOLCHAIN_FOLDER
+  - mkdir $TRAVIS_BUILD_DIR/toolchains
+  - TOOLCHAIN_FOLDER=$TRAVIS_BUILD_DIR/toolchains
   # Create and save path to the gcc-arm-none-eabi compiler
   - mkdir $TOOLCHAIN_FOLDER/gcc-arm-none-eabi
   - ARM_NONE_EABI_TOOLCHAIN_PATH=$TOOLCHAIN_FOLDER/gcc-arm-none-eabi
@@ -40,7 +40,7 @@ install:
 
 script:
   - cd $PROJECT_PATH
-  #cmake configure
+  # cmake configure
   - cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=$ARM_NONE_EABI_TOOLCHAIN_PATH -H. -B"cmake-build" -G "Unix Makefiles"
-  #build
+  # build project
   - make -j
