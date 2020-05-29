@@ -1,2 +1,5 @@
 .idea
 cmake-build-debug
+example/cmake-build/*
+example/CMakeFiles/*
+
