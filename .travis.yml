@@ -7,15 +7,14 @@ before_install:
   # Save path to the toolchains folder
   - TOOLCHAIN_PATH=$(pwd)/../toolchains
   - mkdir $TOOLCHAIN_PATH
-  # Save path to the gcc-arm-none-eabi compiler
+  # Create and save path to the gcc-arm-none-eabi compiler
+  - mkdir $TOOLCHAIN_PATH/gcc-arm-none-eabi
   - ARM_NONE_EABI_TOOLCHAIN_PATH=$TOOLCHAIN_PATH/gcc-arm-none-eabi
-  - mkdir ARM_NONE_EABI_TOOLCHAIN_PATH
-  # Create folders for nRF5 SDK
+  # Create and save path for nRF5 SDK
   - mkdir $TOOLCHAIN_PATH/nRF5
   - mkdir $TOOLCHAIN_PATH/nRF5/nRF5_SDK
-  # Save path to the nRF5_SDK
   - NRF5_SDK_PATH=$TOOLCHAIN_PATH/nRF5/nRF5_SDK
-  # Create folder and save path to nrfjprog
+  # Create and save path to nrfjprog
   - mkdir $TOOLCHAIN_PATH/nRF5/nrfjprog
   - NRFJPROG=$TOOLCHAIN_PATH/nRF5/nrfjprog
 
