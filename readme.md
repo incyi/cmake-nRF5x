@@ -1,4 +1,5 @@
 # cmake-nRF5x
+[![Build Status](https://travis-ci.org/incyi/cmake-nRF5x.svg?branch=travis)](https://travis-ci.org/incyi/cmake-nRF5x)
 
 Cmake script for projects targeting Nordic Semiconductor nRF5x series devices using the GCC toolchain from ARM.
 
