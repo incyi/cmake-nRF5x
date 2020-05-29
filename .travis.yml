@@ -4,25 +4,38 @@ os: linux
 before_install:
   # Save path to the git respository
   - PROJECT_PATH=$(pwd)/example
+  # Save path to the toolchains folder
+  - TOOLCHAIN_PATH=$(pwd)/../toolchains
+  - mkdir $TOOLCHAIN_PATH
+  # Save path to the gcc-arm-none-eabi compiler
+  - ARM_NONE_EABI_TOOLCHAIN_PATH=$TOOLCHAIN_PATH/gcc-arm-none-eabi
+  - mkdir ARM_NONE_EABI_TOOLCHAIN_PATH
+  # Create folders for nRF5 SDK
+  - mkdir $TOOLCHAIN_PATH/nRF5
+  - mkdir $TOOLCHAIN_PATH/nRF5/nRF5_SDK
+  # Save path to the nRF5_SDK
+  - NRF5_SDK_PATH=$TOOLCHAIN_PATH/nRF5/nRF5_SDK
+  # Create folder and save path to nrfjprog
+  - mkdir $TOOLCHAIN_PATH/nRF5/nrfjprog
+  - NRFJPROG=$TOOLCHAIN_PATH/nRF5/nrfjprog
 
 install:
-  # Install toolchain in opt folder
-  - cd /opt
+  # Install compiler in toolchains folder
+  - cd $ARM_NONE_EABI_TOOLCHAIN_PATH
   - wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
-  - tar -xvf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
-  # install SDK in opt folder
-  - mkdir sdk
-  - cd sdk
+  - tar -xvf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 -C $ARM_NONE_EABI_TOOLCHAIN_PATH
+  # install nRF5 SDK in toolchains folder
+  - cd $NRF5_SDK_PATH
   - wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries/nRF5SDK160098a08e2.zip
   - unzip nRF5SDK160098a08e2.zip
   # install nrfjprog
-  - cd /opt
+  - cd $NRFJPROG
   - wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-8-0/nRFCommandLineTools1080Linuxamd64tar.gz
   - tar -xvf nRFCommandLineTools1080Linuxamd64tar.gz
 
 script:
   - cd $PROJECT_PATH
   #cmake configure
-  - cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=/opt/gcc-arm-none-eabi-9-2019-q4-major -H. -B"cmake-build" -G "Unix Makefiles"
+  - cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=$ARM_NONE_EABI_TOOLCHAIN_PATH -H. -B"cmake-build" -G "Unix Makefiles"
   #build
   - make -j
