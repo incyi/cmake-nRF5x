@@ -48,6 +48,6 @@ install:
 script:
   - cd $PROJECT_PATH
   # cmake configure
-  - cmake -H. -B"cmake-build" -G "Unix Makefiles"
+  - cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=/usr/bin -H. -B"cmake-build" -G "Unix Makefiles"
   # build project
   - make -j
