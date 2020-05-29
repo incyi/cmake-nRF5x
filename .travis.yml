@@ -3,7 +3,7 @@ os: linux
 
 before_install:
   # Save path to the git respository
-  - PROJECT_PATH=$(pwd)
+  - PROJECT_PATH=$(pwd)/example
 
 install:
   # Install toolchain in opt folder
