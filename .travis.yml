@@ -8,8 +8,8 @@ before_install:
   - mkdir $TRAVIS_BUILD_DIR/toolchains
   - TOOLCHAIN_FOLDER=$TRAVIS_BUILD_DIR/toolchains
   # Create and save path to the gcc-arm-none-eabi compiler
-  - mkdir $TOOLCHAIN_FOLDER/gcc-arm-none-eabi
-  - ARM_NONE_EABI_TOOLCHAIN_PATH=$TOOLCHAIN_FOLDER/gcc-arm-none-eabi
+  #- mkdir $TOOLCHAIN_FOLDER/gcc-arm-none-eabi
+  #- ARM_NONE_EABI_TOOLCHAIN_PATH=$TOOLCHAIN_FOLDER/gcc-arm-none-eabi
   # Create and save path for nRF5 SDK
   - mkdir $TOOLCHAIN_FOLDER/nRF5
   - mkdir $TOOLCHAIN_FOLDER/nRF5/nRF5_SDK
@@ -20,17 +20,19 @@ before_install:
   # Check if the folders are correctly made
   - echo $PROJECT_PATH
   - echo $TOOLCHAIN_FOLDER
-  - echo $ARM_NONE_EABI_TOOLCHAIN_PATH
+  #- echo $ARM_NONE_EABI_TOOLCHAIN_PATH
   - echo $NRF5_SDK_PATH
   - echo $NRFJPROG
+  - sudo apt-get update
+  - sudo apt-get -y install gcc-arm-none-eabi
 
 install:
   # Install compiler in toolchains folder
-  - cd $ARM_NONE_EABI_TOOLCHAIN_PATH
-  - wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
-  - tar -xvf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 -C $ARM_NONE_EABI_TOOLCHAIN_PATH
+  #- cd $ARM_NONE_EABI_TOOLCHAIN_PATH
+  #- wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
+  #- tar -xvf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 -C $ARM_NONE_EABI_TOOLCHAIN_PATH
   # add compiler folder to $PATH
-  - export PATH=$PATH:ARM_NONE_EABI_TOOLCHAIN_PATH/bin
+  #- export PATH=$PATH:ARM_NONE_EABI_TOOLCHAIN_PATH/bin
   # test gcc-arm-none-eabi compiler
   - arm-none-eabi-gcc --version
   # install nRF5 SDK in toolchains folder
@@ -45,6 +47,6 @@ install:
 script:
   - cd $PROJECT_PATH
   # cmake configure
-  - cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=$ARM_NONE_EABI_TOOLCHAIN_PATH -H. -B"cmake-build" -G "Unix Makefiles"
+  - cmake -H. -B"cmake-build" -G "Unix Makefiles"
   # build project
   - make -j
